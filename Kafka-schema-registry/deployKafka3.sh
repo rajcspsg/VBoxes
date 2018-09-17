@@ -11,6 +11,7 @@ echo "192.168.10.35 kafka1
 192.168.10.25 zookeeper1
 192.168.10.26 zookeeper2
 192.168.10.27 zookeeper3
+192.168.10.51 kafkamisc
 192.168.10.52 monitor1" | sudo tee --append /etc/hosts
 
 sudo apt-get install -y xfsprogs

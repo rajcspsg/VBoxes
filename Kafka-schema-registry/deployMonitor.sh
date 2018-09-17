@@ -11,6 +11,7 @@ echo "192.168.10.35 kafka1
 192.168.10.25 zookeeper1
 192.168.10.26 zookeeper2
 192.168.10.27 zookeeper3
+192.168.10.51 kafkamisc
 192.168.10.52 monitor1" | sudo tee --append /etc/hosts
 
 sudo mkdir -p Installed
@@ -39,8 +40,8 @@ sudo usermod -aG docker $(whoami)
 sudo cp /vagrant/zoonavigator-docker-compose.yml /home/vagrant/Installed/
 sudo cp /vagrant/kafka-manager-docker-compose.yml /home/vagrant/Installed/
 
-sudo docker-compose -f kafka-manager-docker-compose.yml up -d
-#sudo docker-compose -f zoonavigator-docker-compose.yml up -d
+#sudo docker-compose -f kafka-manager-docker-compose.yml up -d
+sudo docker-compose -f zoonavigator-docker-compose.yml up -d
 
 sudo cp  /vagrant/kafka-manager-master.zip /home/vagrant/Installed
 sudo unzip kafka-manager-master.zip
@@ -48,6 +49,6 @@ cd kafka-manager-master
 sudo curl -s "https://get.sdkman.io" | bash
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk install sbt
-sbt clean dist
+sudo sbt clean dist
 
 
