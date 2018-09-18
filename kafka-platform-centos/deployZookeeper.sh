@@ -25,7 +25,7 @@ sudo chown root:root /etc/init.d/zookeeper
 
 sudo mkdir -p /data/zookeeper
 sudo chown -R vagrant:vagrant /data/
-sudo echo "3" > /data/zookeeper/myid
+sudo echo $1 > /data/zookeeper/myid
 sudo rm /home/vagrant/kafka/config/zookeeper.properties
 sudo touch /home/vagrant/kafka/config/zookeeper.properties
 

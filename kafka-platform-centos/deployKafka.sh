@@ -19,12 +19,12 @@ echo "* hard nofile 100000
 
 sudo cp /vagrant/kafka_2.12-1.1.1.tgz /home/vagrant/
 sudo tar -xvzf kafka_2.12-1.1.1.tgz
-sudo rm kafka_2.12-1.1.1.tgz
+sudo rm -rf kafka_2.12-1.1.1.tgz
 sudo mv kafka_2.12-1.1.1 kafka
 
-sudo cd kafka/
-sudo rm -rf config/server.properties
-sudo cp /vagrant/server3.properties config/server.properties
+cd kafka/
+sudo rm config/server.properties
+sudo cp /vagrant/server$1.properties config/server.properties
 
 sudo cp /vagrant/kafka /etc/init.d/
 sudo chmod +x /etc/init.d/kafka

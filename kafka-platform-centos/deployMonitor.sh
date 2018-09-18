@@ -30,7 +30,7 @@ cp /vagrant/zoonavigator-docker-compose.yml /home/vagrant/Installed/
 cp /vagrant/kafka-manager-docker-compose.yml /home/vagrant/Installed/
 
 #sudo docker-compose -f kafka-manager-docker-compose.yml up -d
-docker-compose -f zoonavigator-docker-compose.yml up -d
+sudo docker-compose -f zoonavigator-docker-compose.yml up -d
 
 cp  /vagrant/kafka-manager-master.zip /home/vagrant/Installed
 unzip kafka-manager-master.zip

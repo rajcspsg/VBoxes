@@ -22,5 +22,7 @@ sudo systemctl start docker
 sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-echo $whoami
-sudo echo $whoami
+sudo docker pull landoop/schema-registry-ui
+sudo docker run --rm -p 8000:8000 \
+           -e "SCHEMAREGISTRY_URL=http://kafkamisc:8081" \
+           landoop/schema-registry-ui
