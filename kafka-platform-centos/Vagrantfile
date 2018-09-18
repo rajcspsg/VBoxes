@@ -1,0 +1,95 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+builds = {
+  'zookeeper1.com' => {
+    id: "11",
+    ip: "192.168.10.25",
+    role: "zookeeper",
+    memory: "512",
+    deployId: "1"
+  },
+  'zookeeper2.com' => {
+    id: "12",
+    ip: "192.168.10.26",
+    role: "zookeeper",
+    memory: "512",
+    deployId: "2"
+  },
+  'zookeeper3.com' => {
+    id: "13",
+    ip: "192.168.10.27",
+    role: "zookeeper",
+    memory: "512",
+    deployId: "3"
+  },
+  'kafka1.com' => {
+    id: "21",
+    ip: "192.168.10.35",
+    role: "kafka",
+    memory: "512",
+    deployId: "1"
+  },
+  'kafka2.com' => {
+    id: "22",
+    ip: "192.168.10.36",
+    role: "kafka",
+    memory: "512",
+    deployId: "2"
+  },
+  'kafka3.com' => {
+    id: "23",
+    ip: "192.168.10.37",
+    role: "kafka",
+    memory: "512",
+    deployId: "3"
+  },
+  'kafkamisc.com' => {
+    ip: "192.168.10.51",
+    role: "kafkamisc",
+    memory: "512"
+  },
+  'kafkamonitor.com' => {
+    ip: "192.168.10.52",
+    role: "kafkamonitor",
+    memory: "2048"
+  }
+}
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "centos/7"
+
+  builds.each_pair do |name, opts|
+
+    config.vm.define name.to_sym do |guest|
+
+      guest.vm.network "private_network", ip: opts[:ip]
+
+      guest.vm.provider "virtualbox" do |vb|
+        vb.memory = opts[:memory]
+      end
+
+      case opts[:role]
+      when "kafka"
+        guest.vm.provision :shell, run: "always", :path => "deployKafka#{opts[:deployId]}.sh", :args => "#{opts[:ip]} #{opts[:id]}"
+      when "zookeeper"
+        guest.vm.provision :shell, run: "always", :path => "deployZookeeper#{opts[:deployId]}.sh", :args => "#{opts[:id]}"
+      when "kafkamisc"
+        guest.vm.provision :shell, run: "always", :path => "deployMisc.sh", :args => "#{opts[:ip]}"
+      when "kafkamonitor"
+        guest.vm.provision :shell, run: "always", :path => "deployMonitor.sh", :args => "#{opts[:ip]} #{opts[:id]}"
+      end
+
+    end
+  end
+end
