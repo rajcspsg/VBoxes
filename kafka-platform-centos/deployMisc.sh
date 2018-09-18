@@ -23,6 +23,6 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 sudo docker pull landoop/schema-registry-ui
-sudo docker run --rm -p 8000:8000 \
-           -e "SCHEMAREGISTRY_URL=http://kafkamisc:8081" \
+sudo docker run -d --net=host -p 8000:8000 \
+           -e "SCHEMAREGISTRY_URL=http://kafkamisc.com:8081" \
            landoop/schema-registry-ui
