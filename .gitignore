@@ -1,1 +1,6 @@
 .vagrant
+jdk*
+hadoop-learnbyexample/stand-alone/hadoop-2.9.1.tar.gz
+hadoop-install/hadoop-2.9.1.tar.gz
+*/confluent-5.0.0-2.11.zip
+*/kafka_2.12-1.1.1.tgz
