@@ -22,5 +22,5 @@ sudo cp /vagrant/hdfs-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
 sudo cp /vagrant/mapred-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
 sudo cp /vagrant/yarn-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
 
-sudo bin/hdfs namenode -format
+sudo bin/hdfs namenode -format -y
 #sudo sbin/start-dfs.sh
