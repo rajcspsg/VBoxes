@@ -8,7 +8,8 @@ sudo cp /vagrant/hadoop-2.9.1.tar.gz .
 sudo tar -xvzf hadoop-2.9.1.tar.gz
 
 sudo echo "vagrant ALL=NOPASSWD: /home/vagrant/hadoop-2.9.1/sbin/start-dfs.sh" >> sudo tee /etc/sudoers
-
+echo pwd
+pwd
 cd hadoop-2.9.1
 sudo rm -rf /home/vagrant/hadoop-2.9.1/etc/hadoop/hadoop-env.sh
 sudo rm -rf /home/vagrant/hadoop-2.9.1/etc/hadoop/core-site.xml
