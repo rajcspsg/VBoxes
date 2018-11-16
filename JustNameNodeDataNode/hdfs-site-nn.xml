@@ -25,4 +25,8 @@
                 <name>dfs.datanode.data.dir</name>
                 <value>file:/data/datanode</value>
         </property>
+        <property>
+                <name>dfs.namenode.data.dir</name>
+                <value>file:/data/namenode</value>
+        </property>
 </configuration>

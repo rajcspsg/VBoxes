@@ -11,6 +11,6 @@
         </property>
         <property>
                 <name>dfs.datanode.data.dir</name>
-                <value>file:/data/namenode</value>
+                <value>file:/data/datanode</value>
         </property>
 </configuration>

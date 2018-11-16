@@ -6,11 +6,19 @@ builds = {
     ip: "192.168.10.34",
     role: "datanode",
     memory: "512",
+    id: "1"
   },
   'datanode2.com' => {
     ip: "192.168.10.35",
     role: "datanode",
     memory: "512",
+    id: "2"
+  },
+  'datanode3.com' => {
+    ip: "192.168.10.36",
+    role: "datanode",
+    memory: "512",
+    id: "3"
   },
   'snamenode.com' => {
     ip: "192.168.10.33",
@@ -47,7 +55,7 @@ Vagrant.configure("2") do |config|
         when "snamenode"
           guest.vm.provision :shell, :path => "snamenode.sh"
         when "datanode"
-          guest.vm.provision :shell, :path => "datanode.sh"
+          guest.vm.provision :shell, :path => "datanode.sh", :args => "#{opts[:id]} "
         end
       end
   end
