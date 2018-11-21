@@ -7,3 +7,5 @@ hadoop-install/hadoop-2.9.1.tar.gz
 kafka-schema-registry/confluent-oss-5.0.1-2.11.tar.gz
 */hadoop-tar.gz
 */hadoop-2.9.1.tar.gz
+apache-ambari*
+spark*.tgz

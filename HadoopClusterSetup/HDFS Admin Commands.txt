@@ -1,0 +1,51 @@
+hdfs dfsadmin -report
+
+hdfs dfsadmin -report -live
+
+hdfs dfsadmin -report -dead
+
+hdfs dfsadmin -safemode get
+
+hdfs dfsadmin -safemode enter
+
+hdfs dfsadmin -safemode leave
+
+hdfs dfsadmin -printTopology
+
+hdfs fsck /
+hdfs fsck / -list-corruptfileblocks
+
+
+hadoop balancer
+hadoop balancer -threshold 20
+
+
+Validating the cluster
+
+HDFS Concepts
+
+1. hdfs getconf -confkey dfs.replication
+2. we can chnage the replication factor at file level
+  hadoop fs -put -Ddfs.replication=1 -put test /
+3. similarly we can the the block size at file level
+  hadoop fs -put -Ddfs.replication=1 -Ddfs.blocksize=256in bytes -put test /
+
+DFS Data Movement
+
+hadoop fs -put test /
+hadoop fs -copyFromLocal new /
+
+hdfs dfs -put new /
+
+Below command will list the hadoop file system
+hadoop fs -ls /
+
+Below command will list the local file system
+
+hadoop fs -ls file:///
+
+distcp command
+
+it is similar to rsync
+
+hadoop distcp /spark_log /new_dir
