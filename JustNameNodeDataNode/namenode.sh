@@ -41,3 +41,40 @@ sudo cp /vagrant/core-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
 sudo cp /vagrant/hdfs-site-nn.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/hdfs-site.xml
 sudo cp /vagrant/mapred-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
 sudo cp /vagrant/yarn-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
+
+cp /vagrant/spark-2.4.0-bin-without-hadoop-scala-2.12.tgz /home/vagrant/
+cd /home/vagrant/
+tar -xvzf spark-2.4.0-bin-without-hadoop-scala-2.12.tgz
+mv spark-2.4.0-bin-without-hadoop-scala-2.12 spark
+cp /home/vagrant/spark/jars/spark-network-shuffle_2.12-2.4.0.jar /home/vagrant/hadoop-2.9.1/share/hadoop/yarn/lib
+cp /home/vagrant/spark/conf/spark-env.sh.template /home/vagrant/spark/conf/spark-env.sh
+cp /home/vagrant/spark/conf/spark-defaults.conf.template /home/vagrant/spark/conf/spark-defaults.conf
+
+echo "spark.master                yarn
+spark.eventLog.enabled            true
+spark.driver.memory               512m
+spark.serializer                  org.apache.spark.serializer.KyroSerializer
+spark.eventLog.dir                hdfs://namenode.com:9000/spark_logs
+spark.history.fs.logDirectory     hdfs://namenode.com:9000/spark_logs
+spark.history.provider            org.apache.spark.deploy.history.FsHistoryProvider
+spark.history.fs.update.interval  10s" | sudo tee --append /home/vagrant/spark/conf/spark-defaults.conf
+
+cd spark
+
+echo "export HADOOP_HOME=/home/vagrant/hadoop-2.9.1
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export JAVA_HOME=/usr/java/latest
+export SPARK_HOME=/home/vagrant/spark
+export LD_LIBRARY_PATH=/home/vagrant/hadoop-2.9.1/lib/native:$LD_LIBRARY_PATH
+PATH=$SPARK_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$JAVA_HOME/bin:$PATH
+export PATH=$PATH" | sudo tee --append ~/.bashrc
+
+echo "
+export SPARK_DIST_CLASSPATH=$(hadoop classpath)" | sudo tee --append /home/vagrant/spark/conf/spark-env.sh
+
+cp /home/vagrant/spark/yarn/spark-2.4.0-yarn-shuffle.jar /home/vagrant/hadoop-2.9.1/share/hadoop/yarn/lib/

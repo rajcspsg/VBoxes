@@ -41,3 +41,5 @@ sudo cp /vagrant/core-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
 sudo cp /vagrant/hdfs-site-nn.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/hdfs-site.xml
 sudo cp /vagrant/mapred-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
 sudo cp /vagrant/yarn-site.xml /home/vagrant/hadoop-2.9.1/etc/hadoop/
+
+cp /vagrant/spark-2.4.0-bin-without-hadoop-scala-2.12.tgz /home/vagrant/
