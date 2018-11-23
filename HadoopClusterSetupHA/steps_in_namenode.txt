@@ -1,0 +1,34 @@
+# in primary namenode namenode.com
+hadoop-daemon.sh start journalnode
+hdfs zkfc -formatZK
+hadoop-daemon.sh start namenode
+hadoop-daemon.sh start zkfc
+
+# in standby namenode
+hdfs namenode -bootstrapStandby
+
+# start journal node in all the machines configured in hdfs-site.xml in namenode hadoop
+hadoop-daemon.sh start journalnode
+
+hadoop-daemon.sh start namenode
+hadoop-daemon start zkfc
+
+
+hdfs haadmin -getServiceState nn1
+hdfs haadmin -getServiceState nn2
+
+
+
+https://nicholasmaillard.wordpress.com/2015/07/20/formatting-hdfs/
+
+"Hdfs HA formatting
+
+In HA things get a little more complicated. In HA Standby and Active namenodes have a shared storage managed by the journal node service. HA relies on a failover scenario to swap from StandBy to Active Namenode and as any other system in hadoop this uses zookeeper. As you can see a couple more pieces need to made aware of a formatting action.
+
+The initial steps are very close
+
+Stop the Hdfs service Start only the journal nodes (as they will need to be made aware of the formatting) On the first namenode (as user hdfs) hadoop namenode -format​ hdfs namenode -initializeSharedEdits -force (for the journal nodes) hdfs zkfc -formatZK -force (to force zookeeper to reinitialise)​ restart that first namenode On the second namenode hdfs namenode -bootstrapStandby -force ​(force synch with first namenode) On every datanode clear the data directory Restart the HDFS service This was a very simple step by step guide to formatting. In a later article we will cover actually repairing common errors in HDFS"
+
+Start All HDFS Services. start data nodes
+
+Then start resource manager and node manager respectively

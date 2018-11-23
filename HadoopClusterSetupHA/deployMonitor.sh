@@ -5,6 +5,11 @@ sudo yum install -y java-1.8.0-openjdk
 echo "192.168.10.25 zookeeper1.com
 192.168.10.26 zookeeper2.com
 192.168.10.27 zookeeper3.com
+192.168.10.34 datanode1.com
+192.168.10.35 datanode2.com
+192.168.10.36 datanode3.com
+192.168.10.33 snamenode.com
+192.168.10.32 namenode.com
 192.168.10.52 clustermonitor.com" | sudo tee --append /etc/hosts
 
 mkdir -p Installed

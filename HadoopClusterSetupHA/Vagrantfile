@@ -1,0 +1,87 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+builds = {
+  'zookeeper1.com' => {
+    id: "11",
+    ip: "192.168.10.25",
+    role: "zookeeper",
+    memory: "512",
+    deployId: "1"
+  },
+  'zookeeper2.com' => {
+    id: "12",
+    ip: "192.168.10.26",
+    role: "zookeeper",
+    memory: "512",
+    deployId: "2"
+  },
+  'zookeeper3.com' => {
+    id: "13",
+    ip: "192.168.10.27",
+    role: "zookeeper",
+    memory: "512",
+    deployId: "3"
+  },
+  'namenode.com' => {
+    ip: "192.168.10.32",
+    role: "namenode",
+    memory: "512"
+  },
+  'snamenode.com' => {
+    ip: "192.168.10.33",
+    role: "snamenode",
+    memory: "512"
+  },
+  'datanode1.com' => {
+    ip: "192.168.10.34",
+    role: "datanode",
+    memory: "512",
+    deployId: "1"
+  },
+  'datanode2.com' => {
+    ip: "192.168.10.35",
+    role: "datanode",
+    memory: "512",
+    deployId: "2"
+  },
+  'datanode3.com' => {
+    ip: "192.168.10.36",
+    role: "datanode",
+    memory: "512",
+    deployId: "3"
+  },
+  'clustermonitor.com' => {
+    ip: "192.168.10.52",
+    role: "clustermonitor",
+    memory: "2048"
+  }
+}
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "centos/7"
+
+  builds.each_pair do |name, opts|
+      config.vm.define name.to_sym do |guest|
+        guest.vm.network "private_network", ip: opts[:ip]
+
+        guest.vm.provider "virtualbox" do |vb|
+          vb.memory = opts[:memory]
+        end
+
+        case opts[:role]
+        when "namenode"
+        guest.vm.provision :shell, :path => "namenode.sh"
+        when "snamenode"
+          guest.vm.provision :shell, :path => "namenode.sh"
+        when "datanode"
+          guest.vm.provision :shell, :path => "datanode.sh", :args => "#{opts[:deployId]} "
+        when "zookeeper"
+          guest.vm.provision :shell, :path => "deployZookeeper.sh", :args => "#{opts[:deployId]}"
+        when "clustermonitor"
+          guest.vm.provision :shell, :path => "deployMonitor.sh", :args => "#{opts[:id]}"
+        end
+      end
+  end
+end

@@ -5,7 +5,10 @@ sudo echo "%admin ALL=(ALL) ALL" >>sudo tee /etc/sudoers
 ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
 cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
 
-echo "192.168.10.34 datanode1.com
+echo "192.168.10.25 zookeeper1.com
+192.168.10.26 zookeeper2.com
+192.168.10.27 zookeeper3.com
+192.168.10.34 datanode1.com
 192.168.10.35 datanode2.com
 192.168.10.36 datanode3.com
 192.168.10.33 snamenode.com
@@ -21,6 +24,7 @@ wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch
 rpm -ivh epel-release-6-8.noarch.rpm
 yum --enablerepo=epel -y install sshpass
 
+sudo mkdir -p /data/mycluster
 sudo echo "vagrant ALL=NOPASSWD: /home/vagrant/hadoop-2.9.1/sbin/start-dfs.sh" >> sudo tee /etc/sudoers
 
 cd hadoop-2.9.1
@@ -78,3 +82,4 @@ echo "
 export SPARK_DIST_CLASSPATH=$(hadoop classpath)" | sudo tee --append /home/vagrant/spark/conf/spark-env.sh
 
 cp /home/vagrant/spark/yarn/spark-2.4.0-yarn-shuffle.jar /home/vagrant/hadoop-2.9.1/share/hadoop/yarn/lib/
+
