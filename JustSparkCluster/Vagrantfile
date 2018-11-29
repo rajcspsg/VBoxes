@@ -1,0 +1,50 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+builds = {
+  'slave1.com' => {
+    ip: "192.168.11.34",
+    role: "slave",
+    memory: "512",
+    id: "1"
+  },
+  'slave2.com' => {
+    ip: "192.168.11.35",
+    role: "slave",
+    memory: "512",
+    id: "2"
+  },
+  'slave3.com' => {
+    ip: "192.168.11.36",
+    role: "slave",
+    memory: "512",
+    id: "3"
+  },
+  'master.com' => {
+    ip: "192.168.11.33",
+    role: "master",
+    memory: "512",
+  }
+}
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "centos/7"
+
+  builds.each_pair do |name, opts|
+    config.vm.define name.to_sym do |guest|
+      guest.vm.network "private_network", ip: opts[:ip]
+
+      guest.vm.provider "virtualbox" do |vb|
+        vb.memory = opts[:memory]
+      end
+
+      case opts[:role]
+      when "master"
+        guest.vm.provision :shell, :path => "master.sh"
+      when "slave"
+        guest.vm.provision :shell, :path => "slave.sh", :args => "#{opts[:id]} "
+      end
+
+    end
+  end
+end
