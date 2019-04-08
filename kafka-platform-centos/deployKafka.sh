@@ -17,10 +17,10 @@ echo "* hard nofile 100000
 * soft nofile 100000" | sudo tee --append /etc/security/limits.conf
 
 
-sudo cp /vagrant/kafka_2.12-1.1.1.tgz /home/vagrant/
-sudo tar -xvzf kafka_2.12-1.1.1.tgz
-sudo rm -rf kafka_2.12-1.1.1.tgz
-sudo mv kafka_2.12-1.1.1 kafka
+sudo cp /vagrant/kafka_2.12-2.2.0.tgz /home/vagrant/
+sudo tar -xvzf kafka_2.12-2.2.0.tgz
+sudo rm -rf kafka_2.12-2.2.0.tgz
+sudo mv kafka_2.12-2.2.0 kafka
 
 cd kafka/
 sudo rm config/server.properties

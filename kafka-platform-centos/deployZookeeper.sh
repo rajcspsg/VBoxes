@@ -11,10 +11,10 @@ echo "192.168.10.35 kafka1.com
 192.168.10.51 kafkamisc.com
 192.168.10.52 kafkamonitor.com" | sudo tee --append /etc/hosts
 
-sudo cp /vagrant/kafka_2.12-1.1.1.tgz /home/vagrant/
-sudo tar -xvzf kafka_2.12-1.1.1.tgz
-sudo rm kafka_2.12-1.1.1.tgz
-sudo mv kafka_2.12-1.1.1 kafka
+sudo cp /vagrant/kafka_2.12-2.2.0.tgz /home/vagrant/
+sudo tar -xvzf kafka_2.12-2.2.0.tgz
+sudo rm kafka_2.12-2.2.0.tgz
+sudo mv kafka_2.12-2.2.0 kafka
 
 sudo cd kafka/
 sudo cp /vagrant/zookeeper /etc/init.d/
