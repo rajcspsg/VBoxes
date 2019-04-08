@@ -10,3 +10,4 @@ kafka-schema-registry/confluent-oss-5.0.1-2.11.tar.gz
 apache-ambari*
 spark*.tgz
 scala*.rpm
+kafka-platform-centos/kafka_2.12-2.2.0
