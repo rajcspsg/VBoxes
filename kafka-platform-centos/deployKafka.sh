@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo yum install -y vim nano tar nmap ca-certificates net-tools
+sudo yum install -y vim nano screen tar nmap ca-certificates net-tools
 sudo yum install -y java-1.8.0-openjdk
 
 echo "192.168.10.35 kafka1.com
