@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo yum install -y vim nano screen tar nmap ca-certificates net-tools zip unzip
+sudo yum install -y vim nano screen tar nmap ca-certificates net-tools zip unzip lsof git
 sudo yum install -y java-1.8.0-openjdk
 
 
@@ -35,3 +35,6 @@ sudo docker-compose -f zoonavigator-docker-compose.yml up -d
 sudo cp -r /vagrant/kafka-manager-1.3.3.21 /home/vagrant/Installed/
 #unzip kafka-manager-1.3.3.21.zip
 #cd kafka-manager-1.3.3.21
+
+sudo git clone https://github.com/linkedin/kafka-monitor.git
+sudo wget https://github.com/prometheus/prometheus/releases/download/v2.9.2/prometheus-2.9.2.linux-amd64.tar.gz
