@@ -6,7 +6,8 @@ DAEMON_NAME=zookeeper
 #[ ${NETWORKING} = "no" ] && exit 0
 
 PATH=$PATH:$DAEMON_PATH
-
+#export PROM_HOME=/home/vagrant/prometheus
+#export EXTRA_ARGS=-javaagent:$PROM_HOME/jmx_prometheus_javaagent-0.11.0.jar=8080:$PROM_HOME/zookeeper.yaml"
 # See how we were called.
 case "$1" in
   start)
@@ -17,6 +18,7 @@ case "$1" in
             echo "Zookeeper is already running";
         else
           echo "Starting $DAEMON_NAME";
+          echo "DAEMON_PATH is $DAEMON_PATH"
           $DAEMON_PATH/zookeeper-server-start.sh -daemon /home/vagrant/kafka/config/zookeeper.properties
         fi
         ;;

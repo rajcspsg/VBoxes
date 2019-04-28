@@ -37,4 +37,26 @@ sudo cp -r /vagrant/kafka-manager-1.3.3.21 /home/vagrant/Installed/
 #cd kafka-manager-1.3.3.21
 
 sudo git clone https://github.com/linkedin/kafka-monitor.git
-sudo wget https://github.com/prometheus/prometheus/releases/download/v2.9.2/prometheus-2.9.2.linux-amd64.tar.gz
+#sudo wget https://github.com/prometheus/prometheus/releases/download/v2.9.2/prometheus-2.9.2.linux-amd64.tar.gz
+sudo cp /vagrant/prometheus-2.9.2.linux-amd64.tar.gz Installed/
+cd Installed
+sudo tar -xzf prometheus-2.9.2.linux-amd64.tar.gz
+sudo mv prometheus-2.9.2.linux-amd64 prometheus
+sudo rm prometheus-*.linux-amd64.tar.gz
+sudo chmod -R 777 /home/vagrant/Installed/prometheus/data
+sudo chmod -R 777 /home/vagrant/Installed/prometheus/prometheus
+
+export PROM_HOME=/home/vagrant/Installed/prometheus
+echo "
+[Unit]
+Description= Prometheus Server
+Documentation=https://prometheus.io/docs/introduction/overview/
+After=network-online.target
+
+[Service]
+User=vagrant
+ExecStart=$PROM_HOME/prometheus --config.file=$PROM_HOME/prometheus.yml --storage.tsdb.path=$PROM_HOME/data
+
+[Install]
+WantedBy=multi-user.target
+" | sudo tee --append /etc/systemd/system/prometheus.service

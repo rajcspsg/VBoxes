@@ -26,6 +26,10 @@ cd kafka/
 sudo rm config/server.properties
 sudo cp /vagrant/server$1.properties config/server.properties
 
+sudo mkdir -p /home/vagrant/prometheus
+sudo cp /vagrant/kafka-2_0_0.yml /home/vagrant/prometheus/
+sudo cp /vagrant/jmx_prometheus_javaagent-0.11.0.jar /home/vagrant/prometheus/
+
 sudo cp /vagrant/kafka /etc/init.d/
 sudo chmod +x /etc/init.d/kafka
 sudo chown root:root /etc/init.d/kafka

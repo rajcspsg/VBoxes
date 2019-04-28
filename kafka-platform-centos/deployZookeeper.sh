@@ -16,6 +16,9 @@ sudo tar -xvzf kafka_2.12-2.2.0.tgz
 sudo rm kafka_2.12-2.2.0.tgz
 sudo mv kafka_2.12-2.2.0 kafka
 
+sudo mkdir -p /home/vagrant/prometheus
+sudo cp /vagrant/jmx_prometheus_javaagent-0.11.0.jar /home/vagrant/prometheus/
+
 sudo cd kafka/
 sudo cp /vagrant/zookeeper /etc/init.d/
 
