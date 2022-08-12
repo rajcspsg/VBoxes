@@ -1,0 +1,60 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+builds = {
+  'aerospike1.com' => {
+    ip: "192.168.10.25",
+    memory: "512",
+    role:"aerospike",
+    id:1
+  },
+  'aerospike2.com' => {
+    ip: "192.168.10.26",
+    memory: "512",
+    role:"aerospike",
+    id: 2
+  },
+  'aerospike3.com' => {
+    ip: "192.168.10.27",
+    memory: "512",
+    role:"aerospike",
+    id: 3
+  },
+  'amc.com' => {
+    ip: "192.168.10.51",
+    memory: "512",
+    role:"amc"
+  }
+}
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "centos/7"
+
+  builds.each_pair do |name, opts|
+
+    config.vm.define name.to_sym do |guest|
+
+      guest.vm.network "private_network", ip: opts[:ip]
+
+      guest.vm.provider "virtualbox" do |vb|
+        vb.memory = opts[:memory]
+      end
+      case opts[:role]
+      when "aerospike"
+        guest.vm.provision :shell, :path => "aerospike.sh", :args => "#{opts[:ip]} #{opts[:id]}"
+      when "amc"
+        guest.vm.provision :shell, :path => "amc.sh", :args => "#{opts[:ip]} "
+        guest.vm.network "forwarded_port", guest: 8081, host: 8081
+      end
+    end
+  end
+end
